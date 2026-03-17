@@ -1,0 +1,210 @@
+import type { Partner } from '../store/partnersStore';
+
+export const mockPartner: Partner = {
+  id: 'demo-partner-1',
+  name: 'Sophia',
+  avatarColor: '#E84C8B',
+  avgCycleLength: 28,
+  avgPeriodLength: 5,
+  lastPeriodStart: '2026-02-19',
+  birthday: null,
+  notes: null,
+  cycleStatus: {
+    currentPhase: 'LUTEAL',
+    currentDay: 24,
+    daysUntilPeriod: 4,
+    daysUntilOvulation: 18,
+    cycleProgress: 86,
+    periodStartPredicted: '2026-03-19',
+    ovulationWindowStart: '2026-03-01',
+    ovulationWindowEnd: '2026-03-03',
+    moodAlert: {
+      level: 'medium',
+      title: 'Emotions running high',
+      message: 'She may feel more sensitive or irritable right now — PMS is kicking in. A little patience and a thoughtful gesture goes a long way.',
+      emoji: '💛',
+    },
+    giftRecommendations: [
+      { category: 'CHOCOLATE', reason: 'Cravings are real in the luteal phase', urgency: 'now' },
+      { category: 'WELLNESS', reason: 'Warmth and relaxation help with cramps', urgency: 'soon' },
+      { category: 'TEA', reason: 'Herbal teas ease bloating and mood', urgency: 'anytime' },
+    ],
+    funFact: 'During the luteal phase, body temperature rises by 0.3–0.6°C after ovulation — which is why she might feel warmer than usual.',
+    adviceForToday: "Her period is 4 days away — this is the ideal window to show up before she even asks. Order something warm and comforting, clear your schedule for the weekend, and check in without her having to prompt you.",
+  },
+};
+
+export const mockUser = {
+  id: 'demo-user-1',
+  email: 'demo@broflow.app',
+  firstName: 'Marcus',
+  profileType: 'SINGLE',
+  pointsBalance: 0,
+};
+
+export const mockGifts = [
+  // CHOCOLATE
+  {
+    id: 'gift-1',
+    name: 'Dark Chocolate Bouquet',
+    category: 'CHOCOLATE',
+    priceInCents: 5999,
+    description: 'Artisan dark chocolate arrangement — a creative twist on flowers, made entirely from premium Belgian chocolate.',
+    business: { name: 'Edible Blooms' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-2',
+    name: 'Artisan Chocolate Gift Box',
+    category: 'CHOCOLATE',
+    priceInCents: 3499,
+    description: 'Ethically sourced single-origin chocolate collection. Rich, complex flavours — genuinely good chocolate.',
+    business: { name: 'Pana Chocolate' },
+    sponsor: null,
+  },
+  // FLOWERS
+  {
+    id: 'gift-3',
+    name: 'Signature Seasonal Bouquet',
+    category: 'FLOWERS',
+    priceInCents: 7900,
+    description: 'Hand-arranged seasonal blooms in a signature palette. Same-day delivery across Melbourne, Sydney, Brisbane and Perth.',
+    business: { name: 'Daily Blooms' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-4',
+    name: 'Monthly Flower Subscription',
+    category: 'FLOWERS',
+    priceInCents: 6900,
+    description: 'A fresh bouquet to her door every month. Next-day delivery across all major Australian cities.',
+    business: { name: 'Floraly' },
+    sponsor: null,
+  },
+  // WELLNESS
+  {
+    id: 'gift-5',
+    name: 'Spa & Relaxation Hamper',
+    category: 'WELLNESS',
+    priceInCents: 8900,
+    description: 'Scented candle, hand lotion, face mask, and plush robe. Everything she needs for a proper night in.',
+    business: { name: 'Edible Blooms' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-6',
+    name: 'Magnesium Bath Salts',
+    category: 'WELLNESS',
+    priceInCents: 2999,
+    description: 'Pure magnesium flakes with lavender and eucalyptus. Genuinely helps with cramps and tension.',
+    business: { name: 'Magnesium Sisters' },
+    sponsor: null,
+  },
+  // SKINCARE
+  {
+    id: 'gift-7',
+    name: 'Organic Skincare Gift Set',
+    category: 'SKINCARE',
+    priceInCents: 6500,
+    description: 'Locally sourced, Australian-made skincare. Cleanser, serum, and moisturiser in a luxury gift box.',
+    business: { name: 'Byron Bay Gifts' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-8',
+    name: 'Aesop Resurrection Gift Kit',
+    category: 'SKINCARE',
+    priceInCents: 7200,
+    description: 'Iconic hand wash and hand balm duo. A classic gift that never misses.',
+    business: { name: 'Aesop' },
+    sponsor: null,
+  },
+  // CANDLES
+  {
+    id: 'gift-9',
+    name: 'Glasshouse Candle — Kyoto',
+    category: 'CANDLES',
+    priceInCents: 4995,
+    description: 'Japanese plum blossom and bamboo. One of Australia\'s most-gifted candles for good reason.',
+    business: { name: 'Glasshouse Fragrances' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-10',
+    name: 'Artisan Soy Candle Bundle',
+    category: 'CANDLES',
+    priceInCents: 3800,
+    description: 'Hand-poured soy candles in three calming scents. Romantic, ethical, and Australian-made.',
+    business: { name: 'Pookipoiga' },
+    sponsor: null,
+  },
+  // TEA
+  {
+    id: 'gift-11',
+    name: 'Calm & Comfort Tea Collection',
+    category: 'TEA',
+    priceInCents: 3200,
+    description: 'Chamomile, peppermint, and ginger blends. Designed for bloating, cramps, and winding down.',
+    business: { name: 'T2 Tea' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-12',
+    name: 'Loose Leaf Tea Gift Set',
+    category: 'TEA',
+    priceInCents: 4500,
+    description: 'Premium loose-leaf tea sampler with a hand-painted teacup. Free shipping Australia-wide.',
+    business: { name: 'Wishing You Well Gifts' },
+    sponsor: null,
+  },
+  // FOOD
+  {
+    id: 'gift-13',
+    name: 'Flowers & Chocolate Bundle',
+    category: 'FOOD',
+    priceInCents: 9900,
+    description: 'Fresh seasonal bouquet paired with fairy floss and premium chocolates. Same-day delivery available.',
+    business: { name: 'Daily Blooms' },
+    sponsor: null,
+  },
+  {
+    id: 'gift-14',
+    name: 'Gourmet Comfort Food Hamper',
+    category: 'FOOD',
+    priceInCents: 8500,
+    description: 'Locally sourced Australian treats — crackers, dips, chutney, and sweets. Zero effort required from her.',
+    business: { name: 'Byron Bay Gifts' },
+    sponsor: null,
+  },
+];
+
+// Reward gifts — redeemable for 500 points (free)
+export const mockRewardGifts = [
+  {
+    id: 'reward-1',
+    name: 'Artisan Chocolate Gift Box',
+    category: 'CHOCOLATE',
+    priceInCents: 3499,
+    description: 'Single-origin chocolate collection — a thoughtful free gift for showing up consistently.',
+    business: { name: 'Pana Chocolate' },
+    isReward: true,
+  },
+  {
+    id: 'reward-2',
+    name: 'Calm & Comfort Tea Collection',
+    category: 'TEA',
+    priceInCents: 3200,
+    description: 'Chamomile, peppermint, and ginger blends. A perfect free treat for her.',
+    business: { name: 'T2 Tea' },
+    isReward: true,
+  },
+  {
+    id: 'reward-3',
+    name: 'Magnesium Bath Salts',
+    category: 'WELLNESS',
+    priceInCents: 2999,
+    description: 'Pure magnesium flakes with lavender. Free reward for loyal Broflow users.',
+    business: { name: 'Magnesium Sisters' },
+    isReward: true,
+  },
+];
