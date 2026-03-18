@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '../../../../src/lib/supabase-server';
 import { sendOrderNotificationEmail } from '../../../../src/lib/notify';
+import { placeShopifyOrder } from '../../../../src/lib/shopify';
 
 const POINTS_PER_DOLLAR = 1;
 
@@ -97,24 +98,40 @@ export async function POST(req: NextRequest) {
       if (gift?.sponsor_id) {
         const { data: sponsor } = await supabaseAdmin
           .from('sponsors')
-          .select('name, notification_email, notification_method')
+          .select('name, notification_email, notification_method, shopify_domain, shopify_access_token')
           .eq('id', gift.sponsor_id)
           .single();
 
-        if (sponsor?.notification_email && sponsor.notification_method === 'email') {
-          await sendOrderNotificationEmail({
-            businessName: sponsor.name,
-            notificationEmail: sponsor.notification_email,
-            productName: meta.productName,
-            amountCents,
-            deliveryAddress: {
-              line1: meta.deliveryLine1,
-              city: meta.deliveryCity,
-              state: meta.deliveryState,
-              postcode: meta.deliveryPostcode,
-              country: 'AU',
-            },
-          }).catch(() => { /* don't fail the webhook if email fails */ });
+        if (sponsor) {
+          const deliveryAddress = {
+            line1: meta.deliveryLine1,
+            city: meta.deliveryCity,
+            state: meta.deliveryState,
+            postcode: meta.deliveryPostcode,
+            country: 'AU',
+          };
+
+          // Place order directly on their Shopify store if configured
+          if (sponsor.shopify_domain && sponsor.shopify_access_token) {
+            await placeShopifyOrder({
+              shopDomain: sponsor.shopify_domain,
+              accessToken: sponsor.shopify_access_token,
+              productName: meta.productName,
+              priceInCents: amountCents,
+              deliveryAddress,
+            }).catch(() => { /* don't fail the webhook if Shopify call fails */ });
+          }
+
+          // Also send email notification as backup
+          if (sponsor.notification_email && sponsor.notification_method === 'email') {
+            await sendOrderNotificationEmail({
+              businessName: sponsor.name,
+              notificationEmail: sponsor.notification_email,
+              productName: meta.productName,
+              amountCents,
+              deliveryAddress,
+            }).catch(() => { /* don't fail the webhook if email fails */ });
+          }
         }
       }
     }
