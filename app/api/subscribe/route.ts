@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '../../../src/lib/supabase-server';
 
-const CHARITY_PERCENT = 0.15;
+const CHARITY_PERCENT = 0.10;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-02-25.clover' as any });

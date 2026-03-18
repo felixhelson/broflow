@@ -202,7 +202,7 @@ export async function POST(req: NextRequest) {
       product_id: subMeta.productId,
       product_name: subMeta.productName,
       amount_cents: amountCents,
-      charity_amount_cents: Math.round(amountCents * 0.15),
+      charity_amount_cents: Math.round(amountCents * 0.10),
       delivery_address: {
         line1: subMeta.deliveryLine1,
         city: subMeta.deliveryCity,

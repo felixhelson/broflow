@@ -97,7 +97,7 @@ export default function GiftDetailScreen() {
         <p className="text-sm leading-relaxed mb-10" style={{ color: Colors.textMid }}>
           {product?.name as string} is on its way to {activePartner?.name}.
           <br /><br />
-          💝 A donation has been made to the Period Dignity Project.
+          💝 A donation has been made to the White Ribbon Australia.
         </p>
         <Button label="Back to home" onClick={() => router.replace('/home')} size="lg" className="w-full max-w-xs" />
       </div>
@@ -114,7 +114,7 @@ export default function GiftDetailScreen() {
 
   const priceInCents   = product.priceInCents as number;
   const price          = priceInCents / 100;
-  const charity        = price * 0.15;
+  const charity        = price * 0.10;
   const pointsBalance  = user?.pointsBalance ?? 0;
   const maxRedeemable  = Math.min(pointsBalance, Math.floor((priceInCents - 100) / 100) * 100);
   const discountCents  = usePoints && maxRedeemable >= 100 ? maxRedeemable : 0;
@@ -155,7 +155,7 @@ export default function GiftDetailScreen() {
             className="flex justify-between items-center rounded-lg px-2 py-2 mb-2"
             style={{ backgroundColor: Colors.tealLight }}
           >
-            <span className="text-xs" style={{ color: Colors.teal }}>💝 Charity donation (15%)</span>
+            <span className="text-xs" style={{ color: Colors.teal }}>💝 Charity donation (10%)</span>
             <span className="text-xs font-medium" style={{ color: Colors.teal }}>${charity.toFixed(2)}</span>
           </div>
           <div className="h-px my-2" style={{ backgroundColor: Colors.border }} />
@@ -164,7 +164,7 @@ export default function GiftDetailScreen() {
             <span className="text-sm font-semibold" style={{ color: Colors.coral }}>${price.toFixed(2)}</span>
           </div>
           <p className="text-xs mt-2 leading-relaxed" style={{ color: Colors.textMid }}>
-            ${charity.toFixed(2)} goes to the Period Dignity Project to provide tampons for homeless women.
+            ${charity.toFixed(2)} goes to the White Ribbon Australia to provide tampons for homeless women.
           </p>
         </Card>
 

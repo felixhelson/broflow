@@ -77,7 +77,7 @@ export default function AuthScreen() {
             { emoji: '📅', text: 'Track her cycle phases' },
             { emoji: '🎁', text: 'Order gifts at the right moment' },
             { emoji: '💡', text: 'Know what she needs before she does' },
-            { emoji: '💝', text: '15% of every order goes to homeless women' },
+            { emoji: '💝', text: '10% of every order goes to White Ribbon Australia' },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-4">
               <span className="text-2xl">{item.emoji}</span>

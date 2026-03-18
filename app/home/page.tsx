@@ -314,13 +314,13 @@ export default function HomeScreen() {
 
         {/* Charity banner */}
         <div className="rounded-xl p-5 flex items-center gap-4" style={{ backgroundColor: '#1A1A18' }}>
-          <span className="text-4xl font-bold flex-shrink-0" style={{ color: Colors.coralMid }}>15%</span>
+          <span className="text-4xl font-bold flex-shrink-0" style={{ color: Colors.coralMid }}>10%</span>
           <div>
             <p className="text-sm font-semibold text-white mb-0.5">Every purchase gives back</p>
             <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {charityStats
-                ? `$${(charityStats.totalDonatedInCents / 100).toFixed(0)} donated · ${charityStats.estimatedPacksProvided} tampon packs provided`
-                : 'Every order donates 15% to homeless women'
+                ? `$${(charityStats.totalDonatedInCents / 100).toFixed(0)} donated · ${charityStats.estimatedPacksProvided} donations made`
+                : 'Every order donates 10% to White Ribbon Australia'
               }
             </p>
           </div>

@@ -312,7 +312,7 @@ export default function ProfileScreen() {
             style={{ backgroundColor: Colors.white, border: `1px solid ${Colors.border}` }}
           >
             {[
-              { label: '💝 Charity', value: '15% of every order goes to the Period Dignity Project' },
+              { label: '💝 Charity', value: '10% of every order goes to White Ribbon Australia' },
               { label: '🔒 Privacy', value: 'Cycle data is stored securely and never shared' },
               { label: '📱 Version', value: '1.0.0 (web)' },
             ].map(item => (
