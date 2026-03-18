@@ -116,17 +116,6 @@ export const mockGifts = [
       { author: 'Diane F.', rating: 5, text: 'What a wonderful box of surprises. Will use all often. Thank you.' },
     ],
   },
-  {
-    id: 'gift-6',
-    name: 'Magnesium Bath Salts',
-    category: 'WELLNESS',
-    priceInCents: 2999,
-    imageUrl: null,
-    description: 'Pure magnesium flakes with lavender and eucalyptus. Genuinely helps with cramps and tension.',
-    business: { name: 'Magnesium Sisters', location: 'Gold Coast, QLD' },
-    sponsor: null,
-    reviews: [],
-  },
   // SKINCARE
   {
     id: 'gift-7',
@@ -263,15 +252,6 @@ export const mockRewardGifts = [
     priceInCents: 3200,
     description: 'Chamomile, peppermint, and ginger blends. A perfect free treat for her.',
     business: { name: 'T2 Tea' },
-    isReward: true,
-  },
-  {
-    id: 'reward-3',
-    name: 'Magnesium Bath Salts',
-    category: 'WELLNESS',
-    priceInCents: 2999,
-    description: 'Pure magnesium flakes with lavender. Free reward for loyal Broflow users.',
-    business: { name: 'Magnesium Sisters' },
     isReward: true,
   },
 ];

@@ -7,6 +7,7 @@ const TABS = [
   { label: 'Home',     icon: '🏠', path: '/home' },
   { label: 'Gifts',    icon: '🎁', path: '/gifts' },
   { label: 'Calendar', icon: '📅', path: '/calendar' },
+  { label: 'Business', icon: '🏪', path: '/for-businesses' },
   { label: 'Profile',  icon: '👤', path: '/profile' },
 ];
 
