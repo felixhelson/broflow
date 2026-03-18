@@ -114,7 +114,7 @@ export default function GiftDetailScreen() {
 
   const priceInCents   = product.priceInCents as number;
   const price          = priceInCents / 100;
-  const fee            = price * 0.02;
+  const fee            = price * 0.035;
   const pointsBalance  = user?.pointsBalance ?? 0;
   const maxRedeemable  = Math.min(pointsBalance, Math.floor((priceInCents - 100) / 100) * 100);
   const discountCents  = usePoints && maxRedeemable >= 100 ? maxRedeemable : 0;
@@ -205,7 +205,7 @@ export default function GiftDetailScreen() {
             className="flex justify-between items-center rounded-lg px-2 py-2 mb-2"
             style={{ backgroundColor: Colors.grayLight }}
           >
-            <span className="text-xs" style={{ color: Colors.textMid }}>Service fee (2%)</span>
+            <span className="text-xs" style={{ color: Colors.textMid }}>Service fee (3.5%)</span>
             <span className="text-xs font-medium" style={{ color: Colors.textMid }}>${fee.toFixed(2)}</span>
           </div>
           <div className="h-px my-2" style={{ backgroundColor: Colors.border }} />
