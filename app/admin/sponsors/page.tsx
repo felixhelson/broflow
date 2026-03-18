@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../../src/lib/supabase';
 import { Colors } from '../../../src/utils/theme';
 
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'broflow-admin';
+
 interface Application {
   id: string;
   business_name: string;
@@ -30,14 +32,17 @@ interface Sponsor {
 }
 
 export default function AdminSponsorsPage() {
+  const [authed, setAuthed]             = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [applications, setApplications] = useState<Application[]>([]);
   const [sponsors, setSponsors]         = useState<Sponsor[]>([]);
   const [tab, setTab]                   = useState<'applications' | 'sponsors'>('applications');
   const [loading, setLoading]           = useState(true);
 
   useEffect(() => {
-    load();
-  }, []);
+    if (authed) load();
+  }, [authed]);
 
   async function load() {
     setLoading(true);
@@ -65,6 +70,40 @@ export default function AdminSponsorsPage() {
     if (status === 'rejected') return { bg: '#FEE2E2', text: '#DC2626' };
     return { bg: Colors.amberLight, text: Colors.amber };
   };
+
+  if (!authed) {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center px-6 max-w-sm mx-auto" style={{ backgroundColor: Colors.bg }}>
+        <h2 className="text-2xl font-bold mb-1" style={{ color: Colors.text }}>Admin access</h2>
+        <p className="text-sm mb-6" style={{ color: Colors.textMid }}>Enter the admin password to continue.</p>
+        <input
+          type="password"
+          className="w-full px-4 py-3 rounded-xl border text-base outline-none mb-3"
+          style={{ borderColor: passwordError ? '#DC2626' : Colors.border, color: Colors.text, backgroundColor: Colors.white }}
+          placeholder="Password"
+          value={passwordInput}
+          onChange={e => { setPasswordInput(e.target.value); setPasswordError(false); }}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              if (passwordInput === ADMIN_PASSWORD) setAuthed(true);
+              else setPasswordError(true);
+            }
+          }}
+        />
+        {passwordError && <p className="text-xs text-red-600 mb-3">Incorrect password</p>}
+        <button
+          onClick={() => {
+            if (passwordInput === ADMIN_PASSWORD) setAuthed(true);
+            else setPasswordError(true);
+          }}
+          className="w-full py-3 rounded-xl text-sm font-semibold text-white"
+          style={{ backgroundColor: Colors.coral }}
+        >
+          Enter
+        </button>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen pb-16" style={{ backgroundColor: Colors.bg }}>

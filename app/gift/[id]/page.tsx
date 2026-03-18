@@ -157,6 +157,24 @@ export default function GiftDetailScreen() {
           <p className="text-sm leading-relaxed" style={{ color: Colors.textMid }}>{product.description as string}</p>
         )}
 
+        {/* Reviews */}
+        {Array.isArray(product.reviews) && (product.reviews as { author: string; rating: number; text: string }[]).length > 0 && (
+          <div>
+            <p className="text-sm font-semibold mb-2" style={{ color: Colors.text }}>What people are saying</p>
+            <div className="flex flex-col gap-2">
+              {(product.reviews as { author: string; rating: number; text: string }[]).map((review, i) => (
+                <div key={i} className="rounded-xl p-3" style={{ backgroundColor: Colors.grayLight }}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-semibold" style={{ color: Colors.text }}>{review.author}</span>
+                    <span className="text-xs text-yellow-500">{'★'.repeat(review.rating)}</span>
+                  </div>
+                  <p className="text-xs leading-relaxed" style={{ color: Colors.textMid }}>{review.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Price breakdown */}
         <Card>
           <div className="flex justify-between items-center mb-2">

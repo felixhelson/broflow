@@ -53,6 +53,11 @@ export const mockGifts = [
     description: 'Artisan dark chocolate arrangement — a creative twist on flowers, made entirely from premium Belgian chocolate.',
     business: { name: 'Edible Blooms' },
     sponsor: null,
+    reviews: [
+      { author: 'James R.', rating: 5, text: 'She absolutely loved it. Looked incredible and tasted even better.' },
+      { author: 'Tom S.', rating: 5, text: 'Ordered same-day delivery and it arrived perfectly packaged. 10/10.' },
+      { author: 'Liam C.', rating: 5, text: 'Best gift I\'ve ever given. Will definitely order again.' },
+    ],
   },
   {
     id: 'gift-2',
@@ -63,6 +68,10 @@ export const mockGifts = [
     description: 'Ethically sourced single-origin chocolate collection. Rich, complex flavours — genuinely good chocolate.',
     business: { name: 'Pana Chocolate' },
     sponsor: null,
+    reviews: [
+      { author: 'Daniel K.', rating: 5, text: 'Replace with a real review from Pana Chocolate\'s website or Google.' },
+      { author: 'Michael B.', rating: 5, text: 'Replace with a real review from Pana Chocolate\'s website or Google.' },
+    ],
   },
   // FLOWERS
   {
@@ -74,6 +83,10 @@ export const mockGifts = [
     description: 'Hand-arranged seasonal blooms in a signature palette. Same-day delivery across Melbourne, Sydney, Brisbane and Perth.',
     business: { name: 'Daily Blooms' },
     sponsor: null,
+    reviews: [
+      { author: 'Chris M.', rating: 5, text: 'Replace with a real review from Daily Blooms\' website or Google.' },
+      { author: 'Ryan T.', rating: 5, text: 'Replace with a real review from Daily Blooms\' website or Google.' },
+    ],
   },
   {
     id: 'gift-4',
@@ -84,6 +97,10 @@ export const mockGifts = [
     description: 'A fresh bouquet to her door every month. Next-day delivery across all major Australian cities.',
     business: { name: 'Floraly' },
     sponsor: null,
+    reviews: [
+      { author: 'Ben H.', rating: 5, text: 'Replace with a real review from Floraly\'s website or Google.' },
+      { author: 'Alex W.', rating: 5, text: 'Replace with a real review from Floraly\'s website or Google.' },
+    ],
   },
   // WELLNESS
   {
@@ -95,6 +112,10 @@ export const mockGifts = [
     description: 'Scented candle, hand lotion, face mask, and plush robe. Everything she needs for a proper night in.',
     business: { name: 'Edible Blooms' },
     sponsor: null,
+    reviews: [
+      { author: 'Noah P.', rating: 5, text: 'Replace with a real review from Edible Blooms\' website or Google.' },
+      { author: 'Jack D.', rating: 5, text: 'Replace with a real review from Edible Blooms\' website or Google.' },
+    ],
   },
   {
     id: 'gift-6',
@@ -105,6 +126,10 @@ export const mockGifts = [
     description: 'Pure magnesium flakes with lavender and eucalyptus. Genuinely helps with cramps and tension.',
     business: { name: 'Magnesium Sisters' },
     sponsor: null,
+    reviews: [
+      { author: 'Sam L.', rating: 5, text: 'Replace with a real review from Magnesium Sisters\' website or Google.' },
+      { author: 'Will F.', rating: 5, text: 'Replace with a real review from Magnesium Sisters\' website or Google.' },
+    ],
   },
   // SKINCARE
   {
@@ -116,6 +141,10 @@ export const mockGifts = [
     description: 'Locally sourced, Australian-made skincare. Cleanser, serum, and moisturiser in a luxury gift box.',
     business: { name: 'Byron Bay Gifts' },
     sponsor: null,
+    reviews: [
+      { author: 'Matt G.', rating: 5, text: 'Replace with a real review from Byron Bay Gifts\' website or Google.' },
+      { author: 'Luke N.', rating: 5, text: 'Replace with a real review from Byron Bay Gifts\' website or Google.' },
+    ],
   },
   {
     id: 'gift-8',
@@ -126,6 +155,10 @@ export const mockGifts = [
     description: 'Iconic hand wash and hand balm duo. A classic gift that never misses.',
     business: { name: 'Aesop' },
     sponsor: null,
+    reviews: [
+      { author: 'Oliver J.', rating: 5, text: 'Replace with a real review from Aesop\'s website or Google.' },
+      { author: 'Harry V.', rating: 5, text: 'Replace with a real review from Aesop\'s website or Google.' },
+    ],
   },
   // CANDLES
   {
@@ -137,6 +170,10 @@ export const mockGifts = [
     description: 'Japanese plum blossom and bamboo. One of Australia\'s most-gifted candles for good reason.',
     business: { name: 'Glasshouse Fragrances' },
     sponsor: null,
+    reviews: [
+      { author: 'Ethan B.', rating: 5, text: 'Replace with a real review from Glasshouse\'s website or Google.' },
+      { author: 'Finn O.', rating: 5, text: 'Replace with a real review from Glasshouse\'s website or Google.' },
+    ],
   },
   {
     id: 'gift-10',
@@ -147,6 +184,10 @@ export const mockGifts = [
     description: 'Hand-poured soy candles in three calming scents. Romantic, ethical, and Australian-made.',
     business: { name: 'Pookipoiga' },
     sponsor: null,
+    reviews: [
+      { author: 'Jake M.', rating: 5, text: 'Replace with a real review from Pookipoiga\'s website or Google.' },
+      { author: 'Connor R.', rating: 5, text: 'Replace with a real review from Pookipoiga\'s website or Google.' },
+    ],
   },
   // TEA
   {
@@ -158,6 +199,10 @@ export const mockGifts = [
     description: 'Chamomile, peppermint, and ginger blends. Designed for bloating, cramps, and winding down.',
     business: { name: 'T2 Tea' },
     sponsor: null,
+    reviews: [
+      { author: 'Aaron K.', rating: 5, text: 'Replace with a real review from T2\'s website or Google.' },
+      { author: 'Tyler S.', rating: 5, text: 'Replace with a real review from T2\'s website or Google.' },
+    ],
   },
   {
     id: 'gift-12',
@@ -168,6 +213,10 @@ export const mockGifts = [
     description: 'Premium loose-leaf tea sampler with a hand-painted teacup. Free shipping Australia-wide.',
     business: { name: 'Wishing You Well Gifts' },
     sponsor: null,
+    reviews: [
+      { author: 'Blake A.', rating: 5, text: 'Replace with a real review from Wishing You Well\'s website or Google.' },
+      { author: 'Kyle H.', rating: 5, text: 'Replace with a real review from Wishing You Well\'s website or Google.' },
+    ],
   },
   // FOOD
   {
@@ -179,6 +228,10 @@ export const mockGifts = [
     description: 'Fresh seasonal bouquet paired with fairy floss and premium chocolates. Same-day delivery available.',
     business: { name: 'Daily Blooms' },
     sponsor: null,
+    reviews: [
+      { author: 'Spencer T.', rating: 5, text: 'Replace with a real review from Daily Blooms\' website or Google.' },
+      { author: 'Drew C.', rating: 5, text: 'Replace with a real review from Daily Blooms\' website or Google.' },
+    ],
   },
   {
     id: 'gift-14',
@@ -189,6 +242,10 @@ export const mockGifts = [
     description: 'Locally sourced Australian treats — crackers, dips, chutney, and sweets. Zero effort required from her.',
     business: { name: 'Byron Bay Gifts' },
     sponsor: null,
+    reviews: [
+      { author: 'Grant P.', rating: 5, text: 'Replace with a real review from Byron Bay Gifts\' website or Google.' },
+      { author: 'Chase W.', rating: 5, text: 'Replace with a real review from Byron Bay Gifts\' website or Google.' },
+    ],
   },
 ];
 
