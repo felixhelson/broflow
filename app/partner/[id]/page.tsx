@@ -146,7 +146,7 @@ export default function EditPartnerScreen() {
           style={{ backgroundColor: Colors.coralLight, border: `1px solid ${Colors.coralMid}` }}
         >
           <div>
-            <p className="text-sm font-semibold" style={{ color: Colors.coral }}>Period tracker</p>
+            <p className="text-sm font-semibold" style={{ color: Colors.coral }}>Cycle log</p>
             <p className="text-xs mt-0.5" style={{ color: Colors.textMid }}>
               {periodLogged ? '✓ Logged today' : lastPeriod ? `Last: ${lastPeriod}` : 'No period logged yet'}
             </p>

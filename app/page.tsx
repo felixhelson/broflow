@@ -76,7 +76,7 @@ export default function AuthScreen() {
 
         <div className="flex flex-col gap-4 my-10">
           {[
-            { emoji: '📅', text: 'Track her cycle phases' },
+            { emoji: '📅', text: 'Know her cycle phases' },
             { emoji: '🎁', text: 'Order gifts at the right moment' },
             { emoji: '💡', text: 'Know what she needs before she does' },
             { emoji: '💝', text: '10% of every order goes to White Ribbon Australia' },

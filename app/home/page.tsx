@@ -102,7 +102,7 @@ export default function HomeScreen() {
         <EmptyState
           emoji="💝"
           title="Add your first partner"
-          subtitle="Set up a profile to start tracking her cycle and showing up at the right time."
+          subtitle="Set up a profile to know her cycle and show up at the right time."
           action="Add partner profile"
           onAction={() => router.push('/partner/add')}
         />
