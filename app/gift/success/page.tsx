@@ -24,8 +24,8 @@ function SuccessContent() {
         {isRecurring ? ' will arrive every month.' : ' is on its way.'}
         <br /><br />
         {isRecurring
-          ? '📦 You can cancel anytime from your profile. 💝 10% of every delivery goes to White Ribbon Australia.'
-          : '💝 A donation has been made to White Ribbon Australia on this order.'
+          ? '📦 You can cancel anytime from your profile.'
+          : '🎁 She\'s going to love it.'
         }
       </p>
       <Button

@@ -97,7 +97,7 @@ export default function GiftDetailScreen() {
         <p className="text-sm leading-relaxed mb-10" style={{ color: Colors.textMid }}>
           {product?.name as string} is on its way to {activePartner?.name}.
           <br /><br />
-          💝 A donation has been made to the White Ribbon Australia.
+          🎁 She's going to love it.
         </p>
         <Button label="Back to home" onClick={() => router.replace('/home')} size="lg" className="w-full max-w-xs" />
       </div>
@@ -237,7 +237,7 @@ export default function GiftDetailScreen() {
         {isMonthly && (
           <div className="rounded-xl px-4 py-3" style={{ backgroundColor: Colors.coralLight, border: `1px solid ${Colors.coralMid}` }}>
             <p className="text-xs leading-relaxed" style={{ color: Colors.coral }}>
-              She gets a fresh {product.name as string} every month. Cancel any time from your profile. 15% goes to charity every order.
+              She gets a fresh {product.name as string} every month. Cancel any time from your profile.
             </p>
           </div>
         )}

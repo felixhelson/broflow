@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '../../../src/lib/supabase-server';
 
-const CHARITY_PERCENT = 0.10;
+const FEE_PERCENT = 0.02;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-02-25.clover' as any });
@@ -30,15 +30,16 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from('profiles').update({ stripe_customer_id: customerId }).eq('id', userId);
   }
 
+  const feeCents = Math.round(priceInCents * FEE_PERCENT);
+  const totalCents = priceInCents + feeCents;
+
   // Create a recurring Price object for this product
   const stripePrice = await stripe.prices.create({
     currency: 'aud',
-    unit_amount: priceInCents,
+    unit_amount: totalCents,
     recurring: { interval: 'month' },
     product_data: { name: productName },
   });
-
-  const charityAmountInCents = Math.round(priceInCents * CHARITY_PERCENT);
   const origin = req.headers.get('origin') ?? 'http://localhost:3000';
 
   const session = await stripe.checkout.sessions.create({
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
       productName,
       partnerId: partnerId ?? '',
       userId,
-      charityAmountInCents: charityAmountInCents.toString(),
+      charityAmountInCents: '0',
       deliveryLine1: deliveryAddress?.line1 ?? '',
       deliveryCity: deliveryAddress?.city ?? '',
       deliveryState: deliveryAddress?.state ?? '',
