@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
     cancel_url: `${origin}/gift/${productId}`,
     metadata: {
       productId,
+      productName,
       partnerId: partnerId ?? '',
       userId: userId ?? '',
       charityAmountInCents: charityAmountInCents.toString(),

@@ -164,7 +164,7 @@ export default function GiftDetailScreen() {
             <span className="text-sm font-semibold" style={{ color: Colors.coral }}>${price.toFixed(2)}</span>
           </div>
           <p className="text-xs mt-2 leading-relaxed" style={{ color: Colors.textMid }}>
-            ${charity.toFixed(2)} goes to the White Ribbon Australia to provide tampons for homeless women.
+            ${charity.toFixed(2)} goes to White Ribbon Australia to support domestic abuse prevention.
           </p>
         </Card>
 

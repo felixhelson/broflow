@@ -27,6 +27,7 @@ export default function GiftsScreen() {
 
   const pointsBalance = user?.pointsBalance ?? 0;
   const canRedeem = !isDemo && pointsBalance >= 500;
+  const showRewards = isDemo || pointsBalance > 0 || canRedeem;
 
   useEffect(() => {
     // Always show mock gifts immediately — replace if real API responds
@@ -105,7 +106,7 @@ export default function GiftsScreen() {
       )}
 
       {/* Rewards section */}
-      {(canRedeem || isDemo) && (
+      {showRewards && (
         <div className="px-5 mb-4">
           <div className="rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #7C3AED, #A855F7)' }}>
             <div className="px-4 pt-4 pb-3 flex items-center justify-between">
@@ -213,6 +214,20 @@ export default function GiftsScreen() {
           ))}
         </div>
       )}
+      {/* For businesses CTA */}
+      <div className="mx-5 mt-6 mb-4 rounded-2xl p-5" style={{ backgroundColor: '#1A1A18' }}>
+        <p className="text-white font-bold text-base mb-1">🏪 List your business on Broflow</p>
+        <p className="text-xs leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.65)' }}>
+          Reach men who are actively looking to buy thoughtful gifts. Get orders directly to your inbox.
+        </p>
+        <button
+          onClick={() => router.push('/for-businesses')}
+          className="px-4 py-2 rounded-xl text-sm font-semibold"
+          style={{ backgroundColor: Colors.coral, color: Colors.white }}
+        >
+          Apply now →
+        </button>
+      </div>
       <BottomNav />
     </main>
   );

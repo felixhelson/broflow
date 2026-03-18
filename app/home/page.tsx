@@ -319,7 +319,7 @@ export default function HomeScreen() {
             <p className="text-sm font-semibold text-white mb-0.5">Every purchase gives back</p>
             <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {charityStats
-                ? `$${(charityStats.totalDonatedInCents / 100).toFixed(0)} donated · ${charityStats.estimatedPacksProvided} donations made`
+                ? `$${(charityStats.totalDonatedInCents / 100).toFixed(0)} donated to White Ribbon Australia`
                 : 'Every order donates 10% to White Ribbon Australia'
               }
             </p>

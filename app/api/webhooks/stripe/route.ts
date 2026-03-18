@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
         partner_id: meta.partnerId || null,
         stripe_session_id: session.id,
         product_id: meta.productId,
-        product_name: meta.productId,
+        product_name: meta.productName,
         amount_cents: amountCents,
         charity_amount_cents: charityAmountCents,
         delivery_address: {
