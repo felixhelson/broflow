@@ -160,7 +160,9 @@ export default function GiftDetailScreen() {
         {/* Reviews */}
         {Array.isArray(product.reviews) && (product.reviews as { author: string; rating: number; text: string }[]).length > 0 && (
           <div>
-            <p className="text-sm font-semibold mb-2" style={{ color: Colors.text }}>What people are saying</p>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-sm font-semibold" style={{ color: Colors.text }}>What people are saying</p>
+            </div>
             <div className="flex flex-col gap-2">
               {(product.reviews as { author: string; rating: number; text: string }[]).map((review, i) => (
                 <div key={i} className="rounded-xl p-3" style={{ backgroundColor: Colors.grayLight }}>
@@ -172,8 +174,26 @@ export default function GiftDetailScreen() {
                 </div>
               ))}
             </div>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="text-xs" style={{ color: Colors.teal }}>✓</span>
+              <p className="text-xs" style={{ color: Colors.textMid }}>
+                All reviews have been verified as legitimate by our team.
+              </p>
+            </div>
           </div>
         )}
+
+        {/* Local business badge */}
+        <div
+          className="rounded-xl px-4 py-3 flex items-center gap-3"
+          style={{ backgroundColor: Colors.coralLight, border: `1px solid ${Colors.coralMid}` }}
+        >
+          <span className="text-xl">🇦🇺</span>
+          <p className="text-xs leading-relaxed" style={{ color: Colors.coral }}>
+            <span className="font-semibold">{((product.business as Record<string, string>)?.name)} is an Australian small business.</span>
+            {' '}Every Broflow gift is sourced from independent local businesses across Australia.
+          </p>
+        </div>
 
         {/* Price breakdown */}
         <Card>
