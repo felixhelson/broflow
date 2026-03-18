@@ -84,7 +84,7 @@ export default function ForBusinessesPage() {
         {[
           { emoji: '🎯', text: 'Your products shown to buyers at the exact right moment' },
           { emoji: '📦', text: 'One-time and monthly recurring orders' },
-          { emoji: '💝', text: '10% of every order donated to White Ribbon Australia' },
+          { emoji: '💝', text: 'Reach customers who are actively ready to buy' },
           { emoji: '🔔', text: 'Instant order notifications via email, SMS or WhatsApp' },
         ].map((item, i) => (
           <div key={i} className="flex items-center gap-3 mb-3 last:mb-0">

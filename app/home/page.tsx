@@ -28,6 +28,7 @@ export default function HomeScreen() {
   const [gifts, setGifts]           = useState<unknown[]>([]);
   const [charityStats, setCharity]  = useState<{ totalDonatedInCents: number; estimatedPacksProvided: number } | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [showNotifBanner, setShowNotifBanner] = useState(false);
 
   useEffect(() => {
     if (isDemo) {
@@ -55,6 +56,31 @@ export default function HomeScreen() {
         setCharity({ totalDonatedInCents: total, estimatedPacksProvided: Math.floor(total / 500) });
       }
     } catch { /* silent */ }
+  }
+
+  useEffect(() => {
+    if (isDemo || typeof window === 'undefined') return;
+    if ('Notification' in window && Notification.permission === 'default') {
+      setShowNotifBanner(true);
+    }
+  }, [isDemo]);
+
+  async function enableNotifications() {
+    if (!('serviceWorker' in navigator) || !user) return;
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') { setShowNotifBanner(false); return; }
+    const reg = await navigator.serviceWorker.register('/sw.js');
+    await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+    });
+    await fetch('/api/push/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: user.id, subscription: sub }),
+    });
+    setShowNotifBanner(false);
   }
 
   const onRefresh = useCallback(async () => {
@@ -130,6 +156,37 @@ export default function HomeScreen() {
       </div>
 
       <div className="px-5 flex flex-col gap-4 pb-8">
+        {/* Notification opt-in banner */}
+        {showNotifBanner && (
+          <div
+            className="rounded-xl px-4 py-3 flex items-center justify-between gap-3"
+            style={{ backgroundColor: Colors.coralLight, border: `1px solid ${Colors.coralMid}` }}
+          >
+            <div className="flex items-center gap-2 flex-1">
+              <span className="text-xl">🔔</span>
+              <p className="text-xs leading-relaxed" style={{ color: Colors.coral }}>
+                <span className="font-semibold">Get reminders</span> when her period is approaching so you can show up at the right time.
+              </p>
+            </div>
+            <div className="flex gap-2 flex-shrink-0">
+              <button
+                onClick={enableNotifications}
+                className="text-xs font-semibold px-3 py-1.5 rounded-full text-white"
+                style={{ backgroundColor: Colors.coral }}
+              >
+                Enable
+              </button>
+              <button
+                onClick={() => setShowNotifBanner(false)}
+                className="text-xs font-medium px-2 py-1.5 rounded-full"
+                style={{ backgroundColor: Colors.white, color: Colors.textMid }}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
+
         {cs ? (
           <>
             {/* Hero cycle card */}
