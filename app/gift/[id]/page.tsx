@@ -125,6 +125,18 @@ export default function GiftDetailScreen() {
       <div className="w-8 h-1 rounded-full mx-auto mt-3 mb-6" style={{ backgroundColor: Colors.border }} />
 
       <div className="px-5 pb-16 flex flex-col gap-4 max-w-lg mx-auto">
+        {/* Product image */}
+        {product.imageUrl && (
+          <div className="rounded-2xl overflow-hidden -mx-5 mb-2">
+            <img
+              src={product.imageUrl as string}
+              alt={product.name as string}
+              className="w-full h-52 object-cover"
+              onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
+            />
+          </div>
+        )}
+
         {/* Product header */}
         <div className="flex items-center gap-4">
           <span className="text-5xl">

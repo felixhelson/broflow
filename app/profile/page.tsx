@@ -32,6 +32,11 @@ export default function ProfileScreen() {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [cancellingId, setCancellingId]   = useState<string | null>(null);
   const [orders, setOrders]               = useState<Order[]>([]);
+  const [editingProfile, setEditingProfile] = useState(false);
+  const [editFirstName, setEditFirstName]   = useState('');
+  const [editEmail, setEditEmail]           = useState('');
+  const [savingProfile, setSavingProfile]   = useState(false);
+  const [profileError, setProfileError]     = useState('');
 
   useEffect(() => {
     if (isDemo || !user) return;
@@ -66,6 +71,26 @@ export default function ProfileScreen() {
     }
   }
 
+  async function handleSaveProfile() {
+    setSavingProfile(true);
+    setProfileError('');
+    try {
+      await supabase.from('profiles').update({ first_name: editFirstName }).eq('id', user!.id);
+      if (editEmail !== user?.email) {
+        const { error } = await supabase.auth.updateUser({ email: editEmail });
+        if (error) throw error;
+      }
+      useAuthStore.setState(state => ({
+        user: state.user ? { ...state.user, firstName: editFirstName, email: editEmail } : null,
+      }));
+      setEditingProfile(false);
+    } catch (err: unknown) {
+      setProfileError((err as Error)?.message ?? 'Could not save changes');
+    } finally {
+      setSavingProfile(false);
+    }
+  }
+
   async function handleLogout() {
     await logout();
     router.replace('/');
@@ -88,30 +113,81 @@ export default function ProfileScreen() {
           className="rounded-xl p-5"
           style={{ backgroundColor: Colors.white, border: `1px solid ${Colors.border}` }}
         >
-          <div className="flex items-center gap-4">
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold text-white flex-shrink-0"
-              style={{ backgroundColor: Colors.coral }}
-            >
-              {user?.firstName?.[0]?.toUpperCase() ?? '?'}
-            </div>
-            <div>
-              <p className="text-base font-semibold" style={{ color: Colors.text }}>
-                {user?.firstName ?? 'Demo User'}
-              </p>
-              <p className="text-sm mt-0.5" style={{ color: Colors.textMid }}>
-                {user?.email ?? 'demo@broflow.app'}
-              </p>
-              {isDemo && (
-                <span
-                  className="inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-medium"
-                  style={{ backgroundColor: Colors.amberLight, color: Colors.amber }}
+          {editingProfile ? (
+            <div className="flex flex-col gap-3">
+              {profileError && <p className="text-xs text-red-600">{profileError}</p>}
+              <div>
+                <label className="text-xs font-medium block mb-1" style={{ color: Colors.textMid }}>First name</label>
+                <input
+                  className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none"
+                  style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.bg }}
+                  value={editFirstName}
+                  onChange={e => setEditFirstName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium block mb-1" style={{ color: Colors.textMid }}>Email</label>
+                <input
+                  type="email"
+                  className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none"
+                  style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.bg }}
+                  value={editEmail}
+                  onChange={e => setEditEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex gap-2 mt-1">
+                <button
+                  onClick={handleSaveProfile}
+                  disabled={savingProfile}
+                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white"
+                  style={{ backgroundColor: Colors.coral }}
                 >
-                  Demo mode
-                </span>
+                  {savingProfile ? 'Saving…' : 'Save'}
+                </button>
+                <button
+                  onClick={() => setEditingProfile(false)}
+                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold"
+                  style={{ backgroundColor: Colors.grayLight, color: Colors.textMid }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center gap-4">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold text-white flex-shrink-0"
+                style={{ backgroundColor: Colors.coral }}
+              >
+                {user?.firstName?.[0]?.toUpperCase() ?? '?'}
+              </div>
+              <div className="flex-1">
+                <p className="text-base font-semibold" style={{ color: Colors.text }}>
+                  {user?.firstName ?? 'Demo User'}
+                </p>
+                <p className="text-sm mt-0.5" style={{ color: Colors.textMid }}>
+                  {user?.email ?? 'demo@broflow.app'}
+                </p>
+                {isDemo && (
+                  <span
+                    className="inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-medium"
+                    style={{ backgroundColor: Colors.amberLight, color: Colors.amber }}
+                  >
+                    Demo mode
+                  </span>
+                )}
+              </div>
+              {!isDemo && (
+                <button
+                  onClick={() => { setEditFirstName(user?.firstName ?? ''); setEditEmail(user?.email ?? ''); setEditingProfile(true); }}
+                  className="text-xs font-medium px-3 py-1.5 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: Colors.grayLight, color: Colors.textMid }}
+                >
+                  Edit
+                </button>
               )}
             </div>
-          </div>
+          )}
         </div>
 
         {/* Points balance */}

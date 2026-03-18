@@ -189,26 +189,37 @@ export default function GiftsScreen() {
             <button
               key={item.id as string}
               onClick={() => router.push(`/gift/${item.id}`)}
-              className="rounded-xl p-4 text-left border shadow-sm flex flex-col hover:opacity-90 transition-opacity"
+              className="rounded-xl text-left border shadow-sm flex flex-col hover:opacity-90 transition-opacity overflow-hidden"
               style={{ backgroundColor: Colors.white, borderColor: Colors.border }}
             >
-              <span className="text-4xl mb-3 block">
-                {(CATEGORY_EMOJI as Record<string, string>)[item.category as string] ?? '🎁'}
-              </span>
-              <p className="text-sm font-semibold leading-tight mb-1 line-clamp-2" style={{ color: Colors.text }}>
-                {item.name as string}
-              </p>
-              <p className="text-xs mb-2 truncate" style={{ color: Colors.textMid }}>
-                {((item.business as Record<string, string>)?.name ?? (item.sponsor as Record<string, string>)?.name) as string}
-              </p>
-              <p className="text-sm font-semibold mt-auto" style={{ color: Colors.coral }}>
-                ${((item.priceInCents as number) / 100).toFixed(0)}
-              </p>
-              <div
-                className="w-full mt-2 py-2 rounded-lg text-xs font-medium text-center text-white"
-                style={{ backgroundColor: Colors.coral }}
-              >
-                Order now
+              {item.imageUrl ? (
+                <img
+                  src={item.imageUrl as string}
+                  alt={item.name as string}
+                  className="w-full h-32 object-cover"
+                  onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+              ) : (
+                <div className="w-full h-32 flex items-center justify-center" style={{ backgroundColor: Colors.grayLight }}>
+                  <span className="text-4xl">{(CATEGORY_EMOJI as Record<string, string>)[item.category as string] ?? '🎁'}</span>
+                </div>
+              )}
+              <div className="p-3 flex flex-col flex-1">
+                <p className="text-sm font-semibold leading-tight mb-1 line-clamp-2" style={{ color: Colors.text }}>
+                  {item.name as string}
+                </p>
+                <p className="text-xs mb-2 truncate" style={{ color: Colors.textMid }}>
+                  {((item.business as Record<string, string>)?.name ?? (item.sponsor as Record<string, string>)?.name) as string}
+                </p>
+                <p className="text-sm font-semibold mt-auto" style={{ color: Colors.coral }}>
+                  ${((item.priceInCents as number) / 100).toFixed(0)}
+                </p>
+                <div
+                  className="w-full mt-2 py-2 rounded-lg text-xs font-medium text-center text-white"
+                  style={{ backgroundColor: Colors.coral }}
+                >
+                  Order now
+                </div>
               </div>
             </button>
           ))}

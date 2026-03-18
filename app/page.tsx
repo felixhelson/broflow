@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '../src/store/authStore';
 import { usePartnersStore } from '../src/store/partnersStore';
+import { supabase } from '../src/lib/supabase';
 import { mockPartner, mockUser } from '../src/lib/mockData';
 import { Button } from '../src/components/ui';
 import { Colors } from '../src/utils/theme';
 
-type Screen = 'welcome' | 'login' | 'signup';
+type Screen = 'welcome' | 'login' | 'signup' | 'forgot';
 
 export default function AuthScreen() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function AuthScreen() {
   const [loading, setLoading]         = useState(false);
   const [error, setError]             = useState('');
 
+  const [resetSent, setResetSent] = useState(false);
   const { login, signup } = useAuthStore();
 
   function handleDemo() {
@@ -109,6 +111,54 @@ export default function AuthScreen() {
             Try demo →
           </button>
         </div>
+      </main>
+    );
+  }
+
+  // ── Forgot password ──────────────────────────────────────────────────────
+  if (screen === 'forgot') {
+    return (
+      <main className="min-h-screen px-6 pt-14 pb-10 max-w-md mx-auto" style={{ backgroundColor: Colors.bg }}>
+        <button onClick={() => setScreen('login')} className="text-2xl mb-8 block" style={{ color: Colors.text }}>←</button>
+        <h2 className="text-3xl font-bold mb-1" style={{ color: Colors.text }}>Reset password</h2>
+        <p className="text-sm mb-8" style={{ color: Colors.textMid }}>We'll send a reset link to your email.</p>
+        {resetSent ? (
+          <div className="px-4 py-3 rounded-xl bg-green-50 border border-green-200 text-sm text-green-700">
+            ✓ Check your email for a reset link.
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {error && <div className="px-4 py-2.5 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">{error}</div>}
+            <div>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: Colors.textMid }}>Email</label>
+              <input
+                type="email"
+                className="w-full px-4 py-3 rounded-xl border text-base outline-none"
+                style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.white }}
+                placeholder="you@example.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
+            <Button
+              label="Send reset link"
+              onClick={async () => {
+                if (!email) return setError('Enter your email');
+                setLoading(true);
+                setError('');
+                const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+                  redirectTo: `${window.location.origin}/reset-password`,
+                });
+                setLoading(false);
+                if (err) setError(err.message);
+                else setResetSent(true);
+              }}
+              loading={loading}
+              size="lg"
+              className="w-full mt-2"
+            />
+          </div>
+        )}
       </main>
     );
   }
@@ -225,6 +275,16 @@ export default function AuthScreen() {
         >
           {screen === 'login' ? "Don't have an account? Sign up" : 'Already have an account? Log in'}
         </button>
+
+        {screen === 'login' && (
+          <button
+            onClick={() => { setError(''); setScreen('forgot'); }}
+            className="text-sm py-1 text-center"
+            style={{ color: Colors.textMid }}
+          >
+            Forgot password?
+          </button>
+        )}
 
         <div className="flex items-center gap-3 mt-2">
           <div className="flex-1 h-px" style={{ backgroundColor: Colors.border }} />
