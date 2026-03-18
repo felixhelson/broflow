@@ -126,7 +126,7 @@ export default function GiftDetailScreen() {
 
       <div className="px-5 pb-16 flex flex-col gap-4 max-w-lg mx-auto">
         {/* Product image */}
-        {product.imageUrl && (
+        {(product.imageUrl as string | null) && (
           <div className="rounded-2xl overflow-hidden -mx-5 mb-2">
             <img
               src={product.imageUrl as string}
