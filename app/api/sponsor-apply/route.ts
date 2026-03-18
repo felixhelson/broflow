@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../src/lib/supabase-server';
 
 export async function POST(req: NextRequest) {
-  const { businessName, category, websiteUrl, contactName, contactEmail, contactPhone, notificationMethod, message } = await req.json();
+  const { businessName, category, websiteUrl, contactName, contactEmail, contactPhone, notificationMethod, offersPickup, message } = await req.json();
 
   if (!businessName || !category || !contactName || !contactEmail) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     contact_email: contactEmail,
     contact_phone: contactPhone || null,
     notification_method: notificationMethod,
+    offers_pickup: offersPickup ?? null,
     message: message || null,
     status: 'pending',
   });

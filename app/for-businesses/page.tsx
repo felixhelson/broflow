@@ -23,6 +23,7 @@ export default function ForBusinessesPage() {
   const [contactEmail, setContactEmail]           = useState('');
   const [contactPhone, setContactPhone]           = useState('');
   const [notificationMethod, setNotificationMethod] = useState('email');
+  const [offersPickup, setOffersPickup]           = useState<boolean | null>(null);
   const [message, setMessage]                     = useState('');
 
   async function handleSubmit() {
@@ -38,7 +39,7 @@ export default function ForBusinessesPage() {
         body: JSON.stringify({
           businessName, category, websiteUrl,
           contactName, contactEmail, contactPhone,
-          notificationMethod, message,
+          notificationMethod, offersPickup, message,
         }),
       });
       const data = await res.json();
@@ -194,6 +195,25 @@ export default function ForBusinessesPage() {
                 }}
               >
                 {method.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="text-xs font-medium block mb-1.5" style={{ color: Colors.textMid }}>Do you offer pickup?</label>
+          <div className="flex gap-2">
+            {[{ value: true, label: '✅ Yes' }, { value: false, label: '🚚 Delivery only' }].map(opt => (
+              <button
+                key={String(opt.value)}
+                onClick={() => setOffersPickup(opt.value)}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                style={{
+                  backgroundColor: offersPickup === opt.value ? Colors.coral : Colors.grayLight,
+                  color: offersPickup === opt.value ? Colors.white : Colors.textMid,
+                }}
+              >
+                {opt.label}
               </button>
             ))}
           </div>
