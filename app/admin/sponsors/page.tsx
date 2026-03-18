@@ -107,9 +107,18 @@ export default function AdminSponsorsPage() {
 
   return (
     <main className="min-h-screen pb-16" style={{ backgroundColor: Colors.bg }}>
-      <div className="px-5 pt-14 pb-4">
-        <h1 className="text-2xl font-bold mb-1" style={{ color: Colors.text }}>Sponsor Admin</h1>
-        <p className="text-sm" style={{ color: Colors.textMid }}>Manage sponsor applications and active sponsors</p>
+      <div className="px-5 pt-14 pb-4 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-1" style={{ color: Colors.text }}>Sponsor Admin</h1>
+          <p className="text-sm" style={{ color: Colors.textMid }}>Manage sponsor applications and active sponsors</p>
+        </div>
+        <a
+          href="/admin/orders"
+          className="text-sm font-semibold px-3 py-1.5 rounded-full"
+          style={{ backgroundColor: Colors.coralLight, color: Colors.coral }}
+        >
+          📦 Orders
+        </a>
       </div>
 
       {/* Tabs */}
