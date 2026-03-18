@@ -194,14 +194,14 @@ export default function CalendarScreen() {
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="grid grid-cols-3 gap-x-2 gap-y-1.5 pt-1">
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: Colors.coral }} />
+              <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: Colors.coral }} />
               <span className="text-xs" style={{ color: Colors.textMid }}>Today</span>
             </div>
             {LEGEND.map(({ phase, label }) => (
               <div key={phase} className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: PHASE_COLORS[phase].dot }} />
+                <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: PHASE_COLORS[phase].dot }} />
                 <span className="text-xs" style={{ color: Colors.textMid }}>{label}</span>
               </div>
             ))}

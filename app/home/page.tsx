@@ -272,34 +272,45 @@ export default function HomeScreen() {
                   action="See all"
                   onAction={() => router.push('/gifts')}
                 />
-                <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5">
+                <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5 snap-x snap-mandatory">
                   {(gifts as Record<string, unknown>[]).map((item) => (
                     <button
                       key={item.id as string}
                       onClick={() => router.push(`/gift/${item.id}`)}
-                      className="flex-shrink-0 w-36 rounded-xl p-3 text-left border shadow-sm"
+                      className="flex-shrink-0 w-40 rounded-xl text-left border shadow-sm overflow-hidden snap-start"
                       style={{ backgroundColor: Colors.white, borderColor: Colors.border }}
                     >
-                      <span className="text-3xl block mb-2">
-                        {(CATEGORY_EMOJI as Record<string, string>)[item.category as string] ?? '🎁'}
-                      </span>
-                      <p className="text-xs font-semibold leading-tight mb-0.5 line-clamp-2" style={{ color: Colors.text }}>
-                        {item.name as string}
-                      </p>
-                      <p className="text-xs mb-1 truncate" style={{ color: Colors.textMid }}>
-                        {((item.business as Record<string, string>)?.name ?? (item.sponsor as Record<string, string>)?.name) as string}
-                      </p>
-                      <p className="text-sm font-medium mb-1.5" style={{ color: Colors.coral }}>
-                        ${((item.priceInCents as number) / 100).toFixed(0)}
-                      </p>
-                      {Boolean(item.sponsor) && (
-                        <Badge label="Partner" color={Colors.amberLight} textColor={Colors.amber} className="mb-2" />
+                      {item.imageUrl ? (
+                        <img
+                          src={item.imageUrl as string}
+                          alt={item.name as string}
+                          className="w-full h-24 object-cover"
+                          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        />
+                      ) : (
+                        <div className="w-full h-24 flex items-center justify-center" style={{ backgroundColor: Colors.grayLight }}>
+                          <span className="text-3xl">{(CATEGORY_EMOJI as Record<string, string>)[item.category as string] ?? '🎁'}</span>
+                        </div>
                       )}
-                      <div
-                        className="w-full py-1.5 rounded-lg text-xs font-medium text-center text-white"
-                        style={{ backgroundColor: Colors.coral }}
-                      >
-                        Order now
+                      <div className="p-3">
+                        <p className="text-xs font-semibold leading-tight mb-0.5 line-clamp-2" style={{ color: Colors.text }}>
+                          {item.name as string}
+                        </p>
+                        <p className="text-xs mb-1 truncate" style={{ color: Colors.textMid }}>
+                          {((item.business as Record<string, string>)?.name ?? (item.sponsor as Record<string, string>)?.name) as string}
+                        </p>
+                        <p className="text-sm font-medium mb-1.5" style={{ color: Colors.coral }}>
+                          ${((item.priceInCents as number) / 100).toFixed(0)}
+                        </p>
+                        {Boolean(item.sponsor) && (
+                          <Badge label="Partner" color={Colors.amberLight} textColor={Colors.amber} className="mb-2" />
+                        )}
+                        <div
+                          className="w-full py-1.5 rounded-lg text-xs font-medium text-center text-white"
+                          style={{ backgroundColor: Colors.coral }}
+                        >
+                          Order now
+                        </div>
                       </div>
                     </button>
                   ))}

@@ -116,12 +116,12 @@ export default function ForBusinessesPage() {
 
         <div>
           <label className="text-xs font-medium block mb-1.5" style={{ color: Colors.textMid }}>Category *</label>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-4 gap-2">
             {CATEGORIES.map(cat => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+                className="py-2 rounded-xl text-xs font-medium transition-colors text-center"
                 style={{
                   backgroundColor: category === cat ? Colors.coral : Colors.grayLight,
                   color: category === cat ? Colors.white : Colors.textMid,

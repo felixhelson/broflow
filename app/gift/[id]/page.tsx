@@ -259,12 +259,12 @@ export default function GiftDetailScreen() {
               </div>
               <button
                 onClick={() => setUsePoints(v => !v)}
-                className="w-12 h-6 rounded-full transition-colors flex-shrink-0 relative"
+                className="flex items-center justify-center w-14 h-8 rounded-full transition-colors flex-shrink-0 relative"
                 style={{ backgroundColor: usePoints ? Colors.coral : Colors.border }}
               >
                 <span
-                  className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform"
-                  style={{ transform: usePoints ? 'translateX(26px)' : 'translateX(2px)' }}
+                  className="absolute top-1 w-6 h-6 rounded-full bg-white shadow transition-transform"
+                  style={{ transform: usePoints ? 'translateX(14px)' : 'translateX(-14px)' }}
                 />
               </button>
             </div>
@@ -313,23 +313,23 @@ export default function GiftDetailScreen() {
               value={line1}
               onChange={e => setLine1(e.target.value)}
             />
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <input
-                className="flex-[2] px-4 py-3 rounded-xl border text-sm outline-none"
+                className="col-span-2 px-4 py-3 rounded-xl border text-sm outline-none"
                 style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.white }}
                 placeholder="City"
                 value={city}
                 onChange={e => setCity(e.target.value)}
               />
               <input
-                className="flex-1 px-4 py-3 rounded-xl border text-sm outline-none"
+                className="px-4 py-3 rounded-xl border text-sm outline-none"
                 style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.white }}
                 placeholder="State"
                 value={state}
                 onChange={e => setState(e.target.value)}
               />
               <input
-                className="flex-1 px-4 py-3 rounded-xl border text-sm outline-none"
+                className="px-4 py-3 rounded-xl border text-sm outline-none"
                 style={{ borderColor: Colors.border, color: Colors.text, backgroundColor: Colors.white }}
                 placeholder="Postcode"
                 value={postcode}

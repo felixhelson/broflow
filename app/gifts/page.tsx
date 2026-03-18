@@ -124,11 +124,11 @@ export default function GiftsScreen() {
             {redeemError && (
               <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-red-100 text-red-700 text-xs">{redeemError}</div>
             )}
-            <div className="flex gap-3 overflow-x-auto px-4 pb-4">
+            <div className="flex gap-3 overflow-x-auto px-4 pb-4 snap-x snap-mandatory">
               {mockRewardGifts.map(gift => (
                 <div
                   key={gift.id}
-                  className="flex-shrink-0 w-40 rounded-xl p-3 flex flex-col"
+                  className="flex-shrink-0 w-44 rounded-xl p-3 flex flex-col snap-start"
                   style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
                 >
                   <span className="text-3xl block mb-2">
