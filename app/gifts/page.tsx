@@ -36,7 +36,10 @@ export default function GiftsScreen() {
     if (!isDemo) {
       supabase.from('gifts').select('*').eq('active', true)
         .then(({ data }) => {
-          if (data && data.length > 0) setAllGifts(data as Record<string, unknown>[]);
+          // Only use DB gifts if they have images — otherwise mock data is richer
+          if (data && data.length > 0 && data.some(g => g.image_url)) {
+            setAllGifts(data as Record<string, unknown>[]);
+          }
         });
     }
   }, [activePartner?.id]);

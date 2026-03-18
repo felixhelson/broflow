@@ -45,7 +45,7 @@ export default function HomeScreen() {
   async function loadGifts() {
     try {
       const { data: dbGifts } = await supabase.from('gifts').select('*').eq('active', true).limit(10);
-      setGifts(dbGifts && dbGifts.length > 0 ? dbGifts : mockGifts);
+      setGifts(dbGifts && dbGifts.length > 0 && dbGifts.some(g => g.image_url) ? dbGifts : mockGifts);
 
       const { data: orders } = await supabase
         .from('orders')
