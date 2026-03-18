@@ -378,6 +378,25 @@ export default function ProfileScreen() {
           </div>
         </div>
 
+        {/* List your business */}
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide mb-2 px-1" style={{ color: Colors.textMid }}>
+            For businesses
+          </p>
+          <button
+            onClick={() => router.push('/for-businesses')}
+            className="w-full rounded-xl p-4 flex items-center gap-3 text-left"
+            style={{ backgroundColor: Colors.white, border: `1px solid ${Colors.border}` }}
+          >
+            <span className="text-2xl">🏪</span>
+            <div className="flex-1">
+              <p className="text-sm font-semibold" style={{ color: Colors.text }}>List your business on Broflow</p>
+              <p className="text-xs mt-0.5" style={{ color: Colors.textMid }}>Reach customers at the right moment</p>
+            </div>
+            <span style={{ color: Colors.textMid }}>›</span>
+          </button>
+        </div>
+
         {/* App info */}
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide mb-2 px-1" style={{ color: Colors.textMid }}>
