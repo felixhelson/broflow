@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface OrderNotificationData {
   businessName: string;
   notificationEmail: string;
@@ -12,6 +10,7 @@ interface OrderNotificationData {
 }
 
 export async function sendOrderNotificationEmail(data: OrderNotificationData) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { businessName, notificationEmail, productName, amountCents, deliveryAddress } = data;
 
   const addressLines = deliveryAddress
