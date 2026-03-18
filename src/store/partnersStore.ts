@@ -60,8 +60,9 @@ interface PartnersState {
   partners: Partner[];
   activePartnerId: string | null;
   isLoading: boolean;
+  lastLoaded: number | null;
   activePartner: Partner | null;
-  loadPartners: () => Promise<void>;
+  loadPartners: (force?: boolean) => Promise<void>;
   setActivePartner: (id: string) => void;
   createPartner: (data: {
     name: string;
@@ -89,13 +90,17 @@ export const usePartnersStore = create<PartnersState>((set, get) => ({
   partners: [],
   activePartnerId: null,
   isLoading: false,
+  lastLoaded: null,
 
   get activePartner() {
     const { partners, activePartnerId } = get();
     return partners.find(p => p.id === activePartnerId) ?? partners[0] ?? null;
   },
 
-  loadPartners: async () => {
+  loadPartners: async (force = false) => {
+    const { lastLoaded, isLoading } = get();
+    if (isLoading) return;
+    if (!force && lastLoaded && Date.now() - lastLoaded < 5 * 60 * 1000) return;
     set({ isLoading: true });
     try {
       const { data, error } = await supabase
@@ -108,6 +113,7 @@ export const usePartnersStore = create<PartnersState>((set, get) => ({
       set({
         partners,
         isLoading: false,
+        lastLoaded: Date.now(),
         activePartnerId: get().activePartnerId ?? partners[0]?.id ?? null,
       });
     } catch {

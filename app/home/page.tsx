@@ -33,17 +33,13 @@ export default function HomeScreen() {
     if (isDemo) {
       setGifts(mockGifts);
     } else {
-      load();
+      loadPartners();
     }
   }, []);
 
   useEffect(() => {
-    if (activePartner && !isDemo) loadGifts();
+    if (activePartner && !isDemo && gifts.length === 0) loadGifts();
   }, [activePartner?.id]);
-
-  async function load() {
-    await loadPartners();
-  }
 
   async function loadGifts() {
     try {
@@ -64,7 +60,7 @@ export default function HomeScreen() {
   const onRefresh = useCallback(async () => {
     if (isDemo) return;
     setRefreshing(true);
-    await load();
+    await loadPartners(true);
     await loadGifts();
     setRefreshing(false);
   }, [isDemo]);
