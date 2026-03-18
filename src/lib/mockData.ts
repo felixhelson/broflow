@@ -98,7 +98,7 @@ export const mockGifts = [
     sponsor: null,
     reviews: [
       { author: 'Amanda P.', rating: 5, text: 'This is the first time I have ever ordered from Floraly and it has been great. I will be ordering often now — thank you.' },
-      { author: 'Rachel W.', rating: 5, text: 'My daughter and wife loved the flowers which is really the only thing that matters!' },
+      { author: 'James W.', rating: 5, text: 'My daughter and wife loved the flowers which is really the only thing that matters!' },
     ],
   },
   // WELLNESS
