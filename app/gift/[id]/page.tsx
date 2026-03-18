@@ -114,7 +114,7 @@ export default function GiftDetailScreen() {
 
   const priceInCents   = product.priceInCents as number;
   const price          = priceInCents / 100;
-  const charity        = price * 0.10;
+  const fee            = price * 0.02;
   const pointsBalance  = user?.pointsBalance ?? 0;
   const maxRedeemable  = Math.min(pointsBalance, Math.floor((priceInCents - 100) / 100) * 100);
   const discountCents  = usePoints && maxRedeemable >= 100 ? maxRedeemable : 0;
@@ -203,19 +203,16 @@ export default function GiftDetailScreen() {
           </div>
           <div
             className="flex justify-between items-center rounded-lg px-2 py-2 mb-2"
-            style={{ backgroundColor: Colors.tealLight }}
+            style={{ backgroundColor: Colors.grayLight }}
           >
-            <span className="text-xs" style={{ color: Colors.teal }}>💝 Charity donation (10%)</span>
-            <span className="text-xs font-medium" style={{ color: Colors.teal }}>${charity.toFixed(2)}</span>
+            <span className="text-xs" style={{ color: Colors.textMid }}>Service fee (2%)</span>
+            <span className="text-xs font-medium" style={{ color: Colors.textMid }}>${fee.toFixed(2)}</span>
           </div>
           <div className="h-px my-2" style={{ backgroundColor: Colors.border }} />
           <div className="flex justify-between items-center">
             <span className="text-sm font-semibold" style={{ color: Colors.text }}>Total charged</span>
-            <span className="text-sm font-semibold" style={{ color: Colors.coral }}>${price.toFixed(2)}</span>
+            <span className="text-sm font-semibold" style={{ color: Colors.coral }}>${(price + fee).toFixed(2)}</span>
           </div>
-          <p className="text-xs mt-2 leading-relaxed" style={{ color: Colors.textMid }}>
-            ${charity.toFixed(2)} goes to White Ribbon Australia to support domestic abuse prevention.
-          </p>
         </Card>
 
         {/* One-time vs monthly toggle */}
@@ -343,7 +340,7 @@ export default function GiftDetailScreen() {
         </div>
 
         <Button
-          label={isMonthly ? `Subscribe — $${price.toFixed(2)}/month` : `Order for $${effectivePrice.toFixed(2)}`}
+          label={isMonthly ? `Subscribe — $${price.toFixed(2)}/month` : `Order for $${(effectivePrice * 1.02).toFixed(2)}`}
           onClick={handleOrder}
           loading={loading}
           size="lg"
