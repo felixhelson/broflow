@@ -36,8 +36,7 @@ export default function AuthScreen() {
       await login(email.trim().toLowerCase(), password);
       router.replace('/home');
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { error?: string } } })?.response?.data?.error;
-      setError(msg ?? 'Check your details and try again');
+      setError((err as Error)?.message ?? 'Check your details and try again');
     } finally {
       setLoading(false);
     }
@@ -52,8 +51,7 @@ export default function AuthScreen() {
       await signup({ firstName: firstName.trim(), email: email.trim().toLowerCase(), password, profileType });
       router.replace('/home');
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { error?: string } } })?.response?.data?.error;
-      setError(msg ?? 'Something went wrong');
+      setError((err as Error)?.message ?? 'Something went wrong');
     } finally {
       setLoading(false);
     }

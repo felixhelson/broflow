@@ -15,6 +15,15 @@ interface Subscription {
   created_at: string;
 }
 
+interface Order {
+  id: string;
+  product_name: string;
+  amount_cents: number;
+  status: string;
+  is_recurring: boolean;
+  created_at: string;
+}
+
 export default function ProfileScreen() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
@@ -22,6 +31,7 @@ export default function ProfileScreen() {
   const isDemo = user?.id === 'demo-user-1';
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [cancellingId, setCancellingId]   = useState<string | null>(null);
+  const [orders, setOrders]               = useState<Order[]>([]);
 
   useEffect(() => {
     if (isDemo || !user) return;
@@ -32,6 +42,13 @@ export default function ProfileScreen() {
       .eq('status', 'active')
       .order('created_at', { ascending: false })
       .then(({ data }) => setSubscriptions(data ?? []));
+    supabase
+      .from('orders')
+      .select('id, product_name, amount_cents, status, is_recurring, created_at')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(20)
+      .then(({ data }) => setOrders(data ?? []));
   }, [user?.id, isDemo]);
 
   async function handleCancel(subId: string) {
@@ -177,6 +194,44 @@ export default function ProfileScreen() {
                   >
                     {cancellingId === sub.id ? 'Cancelling…' : 'Cancel'}
                   </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Order history */}
+        {orders.length > 0 && (
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2 px-1" style={{ color: Colors.textMid }}>
+              Order history
+            </p>
+            <div
+              className="rounded-xl divide-y overflow-hidden"
+              style={{ backgroundColor: Colors.white, border: `1px solid ${Colors.border}` }}
+            >
+              {orders.map(order => (
+                <div key={order.id} className="px-4 py-3 flex items-center justify-between">
+                  <div className="flex-1 min-w-0 mr-3">
+                    <p className="text-sm font-medium truncate" style={{ color: Colors.text }}>
+                      {order.is_recurring ? '📦 ' : '🎁 '}{order.product_name}
+                    </p>
+                    <p className="text-xs mt-0.5" style={{ color: Colors.textMid }}>
+                      {new Date(order.created_at).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      {order.is_recurring ? ' · Monthly' : ''}
+                    </p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-sm font-semibold" style={{ color: Colors.text }}>
+                      {order.amount_cents === 0 ? 'Free' : `$${(order.amount_cents / 100).toFixed(2)}`}
+                    </p>
+                    <p
+                      className="text-xs mt-0.5 capitalize"
+                      style={{ color: order.status === 'completed' ? Colors.teal : Colors.textMid }}
+                    >
+                      {order.status}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

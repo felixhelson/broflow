@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabaseAdmin } from '../../../../src/lib/supabase-server';
+import { sendOrderNotificationEmail } from '../../../../src/lib/notify';
 
 const POINTS_PER_DOLLAR = 1;
 
@@ -84,6 +85,39 @@ export async function POST(req: NextRequest) {
       })
       .select()
       .single();
+
+    // Notify the business
+    if (meta.productId) {
+      const { data: gift } = await supabaseAdmin
+        .from('gifts')
+        .select('sponsor_id')
+        .eq('id', meta.productId)
+        .single();
+
+      if (gift?.sponsor_id) {
+        const { data: sponsor } = await supabaseAdmin
+          .from('sponsors')
+          .select('name, notification_email, notification_method')
+          .eq('id', gift.sponsor_id)
+          .single();
+
+        if (sponsor?.notification_email && sponsor.notification_method === 'email') {
+          await sendOrderNotificationEmail({
+            businessName: sponsor.name,
+            notificationEmail: sponsor.notification_email,
+            productName: meta.productName,
+            amountCents,
+            deliveryAddress: {
+              line1: meta.deliveryLine1,
+              city: meta.deliveryCity,
+              state: meta.deliveryState,
+              postcode: meta.deliveryPostcode,
+              country: 'AU',
+            },
+          }).catch(() => { /* don't fail the webhook if email fails */ });
+        }
+      }
+    }
 
     // Apply points redemption deduction
     if (pointsRedeemed > 0) {
