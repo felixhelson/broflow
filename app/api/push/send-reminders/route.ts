@@ -4,7 +4,7 @@ import { supabaseAdmin } from '../../../../src/lib/supabase-server';
 
 export async function GET(req: NextRequest) {
   webpush.setVapidDetails(
-    process.env.VAPID_EMAIL!,
+    'mailto:hello@broflow.app',
     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
     process.env.VAPID_PRIVATE_KEY!
   );
@@ -35,8 +35,9 @@ export async function GET(req: NextRequest) {
     const dayInCycle = (daysSince % cycleLen) + 1;
     const daysUntilPeriod = cycleLen - dayInCycle;
 
-    // Only notify at 5 days and 2 days out
-    if (daysUntilPeriod !== 5 && daysUntilPeriod !== 2) continue;
+    // Only notify at 5 days and 2 days out (bypass with ?force=true)
+    const force = new URL(req.url).searchParams.get('force') === 'true';
+    if (!force && daysUntilPeriod !== 5 && daysUntilPeriod !== 2) continue;
 
     // Get push subscription for this user
     const { data: sub } = await supabaseAdmin
