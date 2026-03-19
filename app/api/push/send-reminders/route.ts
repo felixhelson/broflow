@@ -3,11 +3,12 @@ import webpush from 'web-push';
 import { supabaseAdmin } from '../../../../src/lib/supabase-server';
 
 export async function GET(req: NextRequest) {
-  webpush.setVapidDetails(
-    'mailto:hello@broflow.app',
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-    process.env.VAPID_PRIVATE_KEY!
-  );
+  const pubKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const privKey = process.env.VAPID_PRIVATE_KEY;
+  if (!pubKey || !privKey) {
+    return NextResponse.json({ error: 'Missing VAPID keys', pub: !!pubKey, priv: !!privKey });
+  }
+  webpush.setVapidDetails('mailto:hello@broflow.app', pubKey, privKey);
   // Verify this is called by Vercel Cron
   const authHeader = req.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
