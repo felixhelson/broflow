@@ -3,14 +3,9 @@ import webpush from 'web-push';
 import { supabaseAdmin } from '../../../../src/lib/supabase-server';
 
 export async function GET(req: NextRequest) {
-  const privKey = process.env.VAPID_PRIVATE_KEY;
+  const privKey = process.env.PUSHKEY;
   if (!privKey) {
-    return NextResponse.json({
-      error: 'Missing VAPID_PRIVATE_KEY',
-      isDefined: process.env.VAPID_PRIVATE_KEY !== undefined,
-      length: process.env.VAPID_PRIVATE_KEY?.length ?? 0,
-      firstChars: process.env.VAPID_PRIVATE_KEY?.slice(0, 4) ?? 'none',
-    });
+    return NextResponse.json({ error: 'Missing PUSHKEY' });
   }
   webpush.setVapidDetails(
     'mailto:hello@broflow.app',
