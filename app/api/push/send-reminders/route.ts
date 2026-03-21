@@ -5,7 +5,14 @@ import { supabaseAdmin } from '../../../../src/lib/supabase-server';
 export async function GET(req: NextRequest) {
   const privKey = process.env.VAPID_PRIVATE_KEY;
   if (!privKey) {
-    return NextResponse.json({ error: 'Missing VAPID_PRIVATE_KEY' });
+    return NextResponse.json({
+      error: 'Missing VAPID_PRIVATE_KEY',
+      STRIPE_SECRET_KEY: !!process.env.STRIPE_SECRET_KEY,
+      SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      RESEND_API_KEY: !!process.env.RESEND_API_KEY,
+      VAPID_PRIVATE_KEY: !!process.env.VAPID_PRIVATE_KEY,
+      CRON_SECRET: !!process.env.CRON_SECRET,
+    });
   }
   webpush.setVapidDetails(
     'mailto:hello@broflow.app',
